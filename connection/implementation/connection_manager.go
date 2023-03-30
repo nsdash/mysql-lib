@@ -49,12 +49,14 @@ func (cm *ConnectionManager) CloseConnection() {
 func openConnection() *sql.DB {
 	dnsData := dns2.NewManager().GetData()
 
+	pattern := "%s:%s@tcp(%s:%s)/%s"
+
 	dns := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		dnsData.Host,
-		dnsData.Port,
+		pattern,
 		dnsData.User,
 		dnsData.Password,
+		dnsData.Host,
+		dnsData.Port,
 		dnsData.Database,
 	)
 
